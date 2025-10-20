@@ -1,6 +1,6 @@
 import { Server } from './index.js';
-import { zodToJsonSchema } from 'zod-to-json-schema';
-import { z } from 'zod';
+import { zodToJsonSchema } from '../../../../../zod-to-json-schema/dist/esm/index.js';
+import { z } from '../../../../../zod/index.js';
 import { McpError, ErrorCode, ListResourceTemplatesRequestSchema, ReadResourceRequestSchema, ListToolsRequestSchema, CallToolRequestSchema, ListResourcesRequestSchema, ListPromptsRequestSchema, GetPromptRequestSchema, CompleteRequestSchema } from '../types.js';
 import { Completable } from './completable.js';
 import { UriTemplate } from '../shared/uriTemplate.js';

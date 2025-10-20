@@ -1,4 +1,4 @@
-import { ZodType } from 'zod';
+import { ZodType } from '../../../../../zod/index.js';
 export var McpZodTypeKind;
 (function (McpZodTypeKind) {
     McpZodTypeKind["Completable"] = "McpCompletable";

@@ -1,6 +1,6 @@
 import { mergeCapabilities, Protocol } from '../shared/protocol.js';
 import { CallToolResultSchema, CompleteResultSchema, EmptyResultSchema, GetPromptResultSchema, InitializeResultSchema, LATEST_PROTOCOL_VERSION, ListPromptsResultSchema, ListResourcesResultSchema, ListResourceTemplatesResultSchema, ListToolsResultSchema, ReadResourceResultSchema, SUPPORTED_PROTOCOL_VERSIONS, ErrorCode, McpError } from '../types.js';
-import Ajv from 'ajv';
+import Ajv from '../../../../../ajv/dist/ajv.bundle.js';
 /**
  * An MCP client on top of a pluggable transport.
  *

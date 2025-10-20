@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from '../../../../../zod/index.js';
 /**
  * Reusable URL validation that disallows javascript: scheme
  */

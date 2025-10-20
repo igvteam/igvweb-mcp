@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from '../../../../zod/index.js';
 export const LATEST_PROTOCOL_VERSION = '2025-06-18';
 export const DEFAULT_NEGOTIATED_PROTOCOL_VERSION = '2025-03-26';
 export const SUPPORTED_PROTOCOL_VERSIONS = [LATEST_PROTOCOL_VERSION, '2025-03-26', '2024-11-05', '2024-10-07'];

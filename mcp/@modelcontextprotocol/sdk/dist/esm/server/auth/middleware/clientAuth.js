@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from '../../../../../../../zod/index.js';
 import { InvalidRequestError, InvalidClientError, ServerError, OAuthError } from '../errors.js';
 const ClientAuthenticatedRequestSchema = z.object({
     client_id: z.string(),

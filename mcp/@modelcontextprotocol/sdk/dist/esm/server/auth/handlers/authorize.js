@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from '../../../../../../../zod/index.js';
 import express from 'express';
 import { rateLimit } from 'express-rate-limit';
 import { allowedMethods } from '../middleware/allowedMethods.js';

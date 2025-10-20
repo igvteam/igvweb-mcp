@@ -1,4 +1,4 @@
-import { ZodFirstPartyTypeKind, } from "zod";
+import { ZodFirstPartyTypeKind, } from "../../../../zod/index.js";
 import { parseDef } from "../parseDef.js";
 import { parseStringDef } from "./string.js";
 import { parseBrandedDef } from "./branded.js";

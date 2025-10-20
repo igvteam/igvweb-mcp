@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from '../../../../../../../zod/index.js';
 import express from 'express';
 import cors from 'cors';
 import { verifyChallenge } from 'pkce-challenge';

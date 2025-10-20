@@ -1,4 +1,4 @@
-import { ZodFirstPartyTypeKind } from "zod";
+import { ZodFirstPartyTypeKind } from "../../../../zod/index.js";
 import { setResponseValueAndErrors } from "../errorMessages.js";
 import { parseDef } from "../parseDef.js";
 export function parseArrayDef(def, refs) {

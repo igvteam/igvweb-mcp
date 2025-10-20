@@ -3,7 +3,7 @@ import { StreamableHTTPClientTransport } from '../../client/streamableHttp.js';
 import { createInterface } from 'node:readline';
 import { ListToolsResultSchema, CallToolResultSchema, ListPromptsResultSchema, GetPromptResultSchema, ListResourcesResultSchema, LoggingMessageNotificationSchema, ResourceListChangedNotificationSchema, ElicitRequestSchema, ReadResourceResultSchema } from '../../types.js';
 import { getDisplayName } from '../../shared/metadataUtils.js';
-import Ajv from 'ajv';
+import Ajv from '../../../../../../ajv/dist/ajv.bundle.js';
 // Create readline interface for user input
 const readline = createInterface({
     input: process.stdin,
