@@ -13,14 +13,25 @@ export default async function startMCPServer(browser) {
 
     server.tool(
         "loadTrack",
-        "Load a track into IGV",
+        `Load a track into IGV
+Usage:
+  - url: the track URL to load (http(s) or gs protocol)
+  - indexURL: optional index file URL, if required (for indexed formats)
+
+Notes:
+    - Supported formats include BAM, CRAM, VCF, BED, BEDPW, SEG, BEDGRAPH, WIG, BigWig, BigBed, GTF, and more.
+    - Supported protocols are http(s) and gs.   
+    - Note: ftp protocol is not supported.
+    - A good resource for finding tracks is the trackhubs in https://github.com/igvteam/igv-data/tree/main/genomes/hubs.   
+      Another source of trackhubs is the UCSC Genome Browser public hubs list: https://genome.ucsc.edu/cgi-bin/hgHubConnect.
+`,
         {
             url: z.string().describe("The track URL to load"),
             indexURL: z.string().optional().describe("An index file URL, if required")
         },
         async ({url, indexURL}) => {
             // Your existing app logic here
-            const result = await browser.loadTrack({url, indexURL})
+            await browser.loadTrack({url, indexURL})
 
             return {
                 content: [{
@@ -157,59 +168,14 @@ export default async function startMCPServer(browser) {
         }
     )
 
-    server.tool(
-        "toJSON",
-        "Get the current session as JSON",
-        {},
-        async () => {
-            const sessionJSON = browser.toJSON()
-            return {
-                content: [{
-                    type: "code",
-                    language: "json",
-                    code: JSON.stringify(sessionJSON, null, 2),
-                }],
-            }
-        }
-    )
-
-    server.tool(
-        "toSVG",
-        "Get the current view as an SVG image",
-        {},
-        async () => {
-            const svg = await browser.toSVG()
-            return {
-                content: [{
-                    type: "image",
-                    format: "svg+xml",
-                    data: svg,
-                }],
-            }
-        }
-    )
-
-    server.tool(
-        "version",
-        "Get the IGV.js version",
-        {},
-        async () => {
-            const version = browser.version()
-            return {
-                content: [{
-                    type: "text",
-                    text: `IGV.js version: ${version}`,
-                }],
-            }
-        }
-    )
 
     // Connect the transport
     await server.connect(new TabServerTransport({
         allowedOrigins: ["*"]  // Adjust for security
     }))
 
-    window.addEventListener('beforeunload', (event) => {
+    window.addEventListener('beforeunload', () => {
         server.close()
     })
 }
+
