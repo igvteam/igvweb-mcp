@@ -70,6 +70,23 @@ const makeActionHandler = (toolName, browser) => {
                 }
             }
 
+        case "setColor":
+            return async ({color, trackName}) => {
+
+                const tracks = browser.findTracks(t => trackName ? t.name === trackName : true)
+                if (tracks) {
+                    tracks.forEach(t => t.color = color)
+                    browser.repaintViews()
+                }
+                return {
+                    content: [{
+                        type: "text",
+                        text: `Set color of track${trackName ? ' ' + trackName : 's'} to ${color}`,
+                    }],
+                }
+            }
+
+
         default:
             return null
     }
