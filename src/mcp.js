@@ -14,43 +14,46 @@ export default async function startMCPServer(browser) {
 
 
     tools.forEach((tool) => {
-        const zodArgs = {}
-
-        if(tool.arguments) {
-            for (const a of tool.arguments) {
-                let schema
-                switch (a.type) {
-                    case "integer":
-                        schema = z.number().int().describe(a.description)
-                        break
-                    case "boolean":
-                        // Preprocess "True"/"False" strings into actual booleans
-                        schema = z
-                            .preprocess((val) => String(val).toLowerCase() === "true", z.boolean())
-                            .describe(a.description)
-                        break
-                    case "string":
-                    default:
-                        if (a.enumValues) {
-                            const enumValues = a.enumValues.map((e) => e.value)
-                            schema = z.enum(enumValues).describe(a.description)
-                        } else {
-                            schema = z.string().describe(a.description)
-                        }
-                        break
-                }
-
-                if (a.optional) {
-                    zodArgs[a.name] = schema.optional()
-                } else {
-                    zodArgs[a.name] = schema
-                }
-            }
-        }
-
         const handler = makeActionHandler(tool.name, browser)
+        if (handler) {
+            const config = {
+                description: tool.description,
+            }
 
-        server.tool(tool.name, tool.description, zodArgs, handler)
+            if (tool.arguments && Array.isArray(tool.arguments) && tool.arguments.length > 0) {
+                const zodArgs = {}
+                for (const a of tool.arguments) {
+                    let schema
+                    switch (a.type) {
+                        case "integer":
+                            schema = z.number().int().describe(a.description)
+                            break
+                        case "boolean":
+                            schema = z
+                                .preprocess((val) => String(val).toLowerCase() === "true", z.boolean())
+                                .describe(a.description)
+                            break
+                        case "string":
+                        default:
+                            if (a.enumValues) {
+                                const enumValues = a.enumValues.map((e) => e.value)
+                                schema = z.enum(enumValues).describe(a.description)
+                            } else {
+                                schema = z.string().describe(a.description)
+                            }
+                            break
+                    }
+
+                    if (a.optional) {
+                        zodArgs[a.name] = schema.optional()
+                    } else {
+                        zodArgs[a.name] = schema
+                    }
+                }
+                config.inputSchema = zodArgs
+            }
+            server.registerTool(tool.name, config, handler)
+        }
     })
 
     await server.connect(

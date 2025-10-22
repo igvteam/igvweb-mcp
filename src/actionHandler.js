@@ -1,6 +1,18 @@
 const makeActionHandler = (toolName, browser) => {
 
     switch (toolName) {
+
+        case "genome":
+            return async ({idOrPath}) => {
+                await browser.loadGenome(idOrPath)
+                return {
+                    content: [{
+                        type: "text",
+                        text: `Loaded genome ${id}`,
+                    }],
+                }
+            }
+
         case "loadTrack":
             return async ({url, indexURL}) => {
                 await browser.loadTrack({url, indexURL})
@@ -12,6 +24,7 @@ const makeActionHandler = (toolName, browser) => {
                     }],
                 }
             }
+
         case "loadSession":
             return async ({url}) => {
                 // Your existing app logic here
@@ -34,7 +47,8 @@ const makeActionHandler = (toolName, browser) => {
                     }],
                 }
             }
-        case "zoomIn":
+
+        case "zoomin":
             return async () => {
                 await browser.zoomIn()
                 return {
@@ -44,7 +58,8 @@ const makeActionHandler = (toolName, browser) => {
                     }],
                 }
             }
-        case "zoomOut":
+
+        case "zoomout":
             return async () => {
                 await browser.zoomOut()
                 return {
@@ -54,16 +69,7 @@ const makeActionHandler = (toolName, browser) => {
                     }],
                 }
             }
-        case "genome":
-            return async ({id}) => {
-                await browser.loadGenome(id)
-                return {
-                    content: [{
-                        type: "text",
-                        text: `Loaded genome ${id}`,
-                    }],
-                }
-            }
+
         default:
             return null
     }
