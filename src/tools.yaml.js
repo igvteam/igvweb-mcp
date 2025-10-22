@@ -387,6 +387,7 @@ const  toolsYAML = `
 
   arguments:
     - name: height
+      type: integer
       description: The maximum height in pixels for each track panel in snapshots.
 
 - name: setSequenceStrand
