@@ -1,8 +1,7 @@
-// javascript
-import {TabServerTransport} from "./@mcp-b/transports/dist/index.js"
-import {McpServer} from "./@modelcontextprotocol/sdk/dist/esm/server/mcp.js"
-import {z} from "./zod/index.js"
-import {parse} from "../node_modules/yaml/browser/index.js"
+import {TabServerTransport} from "@mcp-b/transports"
+import {McpServer} from "@modelcontextprotocol/sdk/server/mcp.js"
+import {z} from "zod"
+import {parse} from "yaml"
 import toolsYAML from "./tools.yaml.js"
 import makeActionHandler from "./actionHandler.js"
 

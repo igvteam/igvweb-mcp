@@ -24,7 +24,7 @@
 
 - name: loadTrack
   description: |
-    Loads a track file from a URL.  Note that IGV supports https://, http://, and gs:// protocols.  IGV does
+    Loads a track file from a URL or a File Blob.  Note that IGV supports https://, http://, and gs:// protocols.  IGV does
     not support ftp:// protocol
     
     Use this tool when you need to:
@@ -35,10 +35,16 @@
     - Load multiple related files simultaneously
     - Load files from remote URLs or cloud storage
 
+  Notes: Tracks can also be loaded into igv-web through its "Track" menu.  This differs
+    from the Desktop IGV, which has menus such as "Load from Server" and "Load from Encode..."
+    Instead, igv-web uses the more general "Load Track" command to load files from any URL.
+    The "Load Track" menu also contains sub-menus for loading from public track hubs and
+    other sources such as the ENCODE project.
+
   arguments:
     - name: url
       description: |
-        URL to the file to load. Supported formats include:
+        URL to the file to load, or a File Blob. Supported formats include:
           - Alignment: BAM, SAM, CRAM
           - Variant: VCF, VCF.gz
           - Annotation: BED, GFF, GTF, BigBed, BigGenePred
@@ -123,13 +129,7 @@
       optional: true
 
 
-
-
-
-
-
-
-
+# Tools below this line are Desktop tools not yet supported in igv-web
 
 
 
