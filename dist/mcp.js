@@ -20984,21 +20984,22 @@ async function startMCPServer(browser) {
   const toolsetInfo = spec.toolset ?? {
     id: server.name,
     description: `This toolset provides access to the igv-webapp genome browser functionalities.
-          A public instance of igv-webapp is available at https://igv.org/app-test., but igv-webapp can also be 
-          self-hosted and customized.
-          NOTE: igv-webapp is a similar but distinct project from the desktop IGV application.`
+    A public instance of igv-webapp is available at https://igv.org/app-test., but igv-webapp can also be
+    self-hosted and customized.
+    NOTE: igv-webapp is a similar but distinct project from the desktop IGV application.`
   };
   const toolsetHandler = async () => {
     return {
-      content: [{
-        type: "application/vnd.igv.toolset+json",
-        data: toolsetInfo
-      }]
+      content: [
+        {
+          type: "text",
+          text: JSON.stringify(toolsetInfo, null, 2)
+        }
+      ]
     };
   };
-  server.registerTool(`${server.name}.toolset`, {
-    description: "Return metadata for the igv-webapp toolset",
-    inputSchema: {}
+  server.registerTool(`igv-webapp.toolset`, {
+    description: "Return metadata for the igv-webapp toolset"
   }, toolsetHandler);
   tools.forEach((tool) => {
     const handler = actionHandler_default(tool.name, browser);
