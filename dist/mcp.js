@@ -20179,11 +20179,6 @@ var tools_yaml_default = `- name: genome
         This is optional; if not provided, the color will be set for all tracks.
       optional: true
 
-
-# Tools below this line are Desktop tools not yet supported in igv-web
-
-
-
 - name: renameTrack
   description: |
     Renames a track.
@@ -20208,6 +20203,11 @@ var tools_yaml_default = `- name: genome
       description: The name of the track to collapse. The name is the file name by default.  This is optional; if not
         provided, all tracks will be collapsed.
       optional: true
+
+# Tools below this line are Desktop tools not yet supported in igv-web
+
+
+
 
 - name: squish
   description: |
@@ -20245,20 +20245,6 @@ var tools_yaml_default = `- name: genome
       description: Start position
     - name: end
       description: End position
-
-- name: renameTrack
-  description: |
-    Renames a track.
-
-  arguments:
-    - name: currentName
-      description: |
-        The current name of the track.
-        NOTE: If the current name contains spaces, replace them with %20.
-    - name: newName
-      description: |
-        The new name for the track.
-        NOTE: If the new name contains spaces, replace them with %20.
 
 - name: group
   description: |
@@ -20960,6 +20946,29 @@ var makeActionHandler = (toolName, browser) => {
             text: `Set color of track${trackName ? " " + trackName : "s"} to ${color}`
           }]
         };
+      };
+    case "renameTrack":
+      return async ({ currentName, newName }) => {
+        const tracks = browser.findTracks((t) => currentName === t.name);
+        if (tracks && tracks.length > 0) {
+          tracks.forEach((t) => {
+            t.name = newName;
+            browser.fireEvent("tracknamechange", [t]);
+          });
+          return {
+            content: [{
+              type: "text",
+              text: `Renamed track ${currentName} to ${newName}`
+            }]
+          };
+        } else {
+          return {
+            content: [{
+              type: "error",
+              text: `No track found with name ${currentName}`
+            }]
+          };
+        }
       };
     default:
       return null;

@@ -86,6 +86,31 @@ const makeActionHandler = (toolName, browser) => {
                 }
             }
 
+        case "renameTrack":
+
+            return async ({currentName, newName}) => {
+
+                const tracks = browser.findTracks(t => currentName === t.name)
+                if (tracks && tracks.length > 0) {
+                    tracks.forEach(t => {
+                        t.name = newName
+                        browser.fireEvent('tracknamechange', [t])
+                    })
+                    return {
+                        content: [{
+                            type: "text",
+                            text: `Renamed track ${currentName} to ${newName}`,
+                        }],
+                    }
+                } else {
+                    return {
+                        content: [{
+                            type: "error",
+                            text: `No track found with name ${currentName}`,
+                        }],
+                    }
+                }
+            }
 
         default:
             return null

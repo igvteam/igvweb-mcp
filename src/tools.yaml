@@ -128,11 +128,6 @@
         This is optional; if not provided, the color will be set for all tracks.
       optional: true
 
-
-# Tools below this line are Desktop tools not yet supported in igv-web
-
-
-
 - name: renameTrack
   description: |
     Renames a track.
@@ -157,6 +152,11 @@
       description: The name of the track to collapse. The name is the file name by default.  This is optional; if not
         provided, all tracks will be collapsed.
       optional: true
+
+# Tools below this line are Desktop tools not yet supported in igv-web
+
+
+
 
 - name: squish
   description: |
@@ -194,20 +194,6 @@
       description: Start position
     - name: end
       description: End position
-
-- name: renameTrack
-  description: |
-    Renames a track.
-
-  arguments:
-    - name: currentName
-      description: |
-        The current name of the track.
-        NOTE: If the current name contains spaces, replace them with %20.
-    - name: newName
-      description: |
-        The new name for the track.
-        NOTE: If the new name contains spaces, replace them with %20.
 
 - name: group
   description: |
