@@ -20978,9 +20978,27 @@ var actionHandler_default = makeActionHandler;
 
 // src/mcp.js
 async function startMCPServer(browser) {
-  const server = new McpServer({ name: "igv-webapp", version: "1.0.0" });
+  const server = new McpServer({ name: "igv-webapp", version: "0.0.1" });
   const spec = parse(tools_yaml_default);
   const tools = Array.isArray(spec) ? spec : spec?.tools ?? [];
+  const toolsetInfo = spec.toolset ?? {
+    id: server.name,
+    description: `This toolset provides access to the igv-webapp genome browser functionalities.
+          A public instance of igv-webapp is available at https://igv.org/app-test., but igv-webapp can also be 
+          self-hosted and customized.`
+  };
+  const toolsetHandler = async () => {
+    return {
+      content: [{
+        type: "application/vnd.igv.toolset+json",
+        data: toolsetInfo
+      }]
+    };
+  };
+  server.registerTool(`${server.name}.toolset`, {
+    description: "Return metadata for the igv-webapp toolset",
+    inputSchema: {}
+  }, toolsetHandler);
   tools.forEach((tool) => {
     const handler = actionHandler_default(tool.name, browser);
     if (handler) {
