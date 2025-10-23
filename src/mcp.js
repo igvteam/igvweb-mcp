@@ -15,7 +15,8 @@ export default async function startMCPServer(browser) {
         id: server.name,
         description: `This toolset provides access to the igv-webapp genome browser functionalities.
           A public instance of igv-webapp is available at https://igv.org/app-test., but igv-webapp can also be 
-          self-hosted and customized.`,
+          self-hosted and customized.
+          NOTE: igv-webapp is a similar but distinct project from the desktop IGV application.`,
     }
 
     // handler that returns the toolset metadata as a content item
