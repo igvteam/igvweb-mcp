@@ -8,7 +8,7 @@ const makeActionHandler = (toolName, browser) => {
                 return {
                     content: [{
                         type: "text",
-                        text: `Loaded genome ${id}`,
+                        text: `Loaded genome ${browser.genome.id}`,
                     }],
                 }
             }

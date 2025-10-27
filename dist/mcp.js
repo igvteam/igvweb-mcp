@@ -1418,18 +1418,18 @@ var require_resolve = __commonJS({
     function resolveSchema(root, ref) {
       var p2 = URI.parse(ref), refPath = _getFullPath(p2), baseId = getFullPath(this._getId(root.schema));
       if (Object.keys(root.schema).length === 0 || refPath !== baseId) {
-        var id2 = normalizeId(refPath);
-        var refVal = this._refs[id2];
+        var id = normalizeId(refPath);
+        var refVal = this._refs[id];
         if (typeof refVal == "string") {
           return resolveRecursive.call(this, root, refVal, p2);
         } else if (refVal instanceof SchemaObject) {
           if (!refVal.validate) this._compile(refVal);
           root = refVal;
         } else {
-          refVal = this._schemas[id2];
+          refVal = this._schemas[id];
           if (refVal instanceof SchemaObject) {
             if (!refVal.validate) this._compile(refVal);
-            if (id2 == normalizeId(ref))
+            if (id == normalizeId(ref))
               return { schema: refVal, root, baseId };
             root = refVal;
           } else {
@@ -1447,8 +1447,8 @@ var require_resolve = __commonJS({
         var schema4 = res.schema;
         var baseId = res.baseId;
         root = res.root;
-        var id2 = this._getId(schema4);
-        if (id2) baseId = resolveUrl(baseId, id2);
+        var id = this._getId(schema4);
+        if (id) baseId = resolveUrl(baseId, id);
         return getJsonPointer.call(this, parsedRef, baseId, schema4, root);
       }
     }
@@ -1463,10 +1463,10 @@ var require_resolve = __commonJS({
           part = util2.unescapeFragment(part);
           schema4 = schema4[part];
           if (schema4 === void 0) break;
-          var id2;
+          var id;
           if (!PREVENT_SCOPE_CHANGE[part]) {
-            id2 = this._getId(schema4);
-            if (id2) baseId = resolveUrl(baseId, id2);
+            id = this._getId(schema4);
+            if (id) baseId = resolveUrl(baseId, id);
             if (schema4.$ref) {
               var $ref = resolveUrl(baseId, schema4.$ref);
               var res = resolveSchema.call(this, root, $ref);
@@ -1542,21 +1542,21 @@ var require_resolve = __commonJS({
       }
       return count;
     }
-    function getFullPath(id2, normalize) {
-      if (normalize !== false) id2 = normalizeId(id2);
-      var p2 = URI.parse(id2);
+    function getFullPath(id, normalize) {
+      if (normalize !== false) id = normalizeId(id);
+      var p2 = URI.parse(id);
       return _getFullPath(p2);
     }
     function _getFullPath(p2) {
       return URI.serialize(p2).split("#")[0] + "#";
     }
     var TRAILING_SLASH_HASH = /#\/?$/;
-    function normalizeId(id2) {
-      return id2 ? id2.replace(TRAILING_SLASH_HASH, "") : "";
+    function normalizeId(id) {
+      return id ? id.replace(TRAILING_SLASH_HASH, "") : "";
     }
-    function resolveUrl(baseId, id2) {
-      id2 = normalizeId(id2);
-      return URI.resolve(baseId, id2);
+    function resolveUrl(baseId, id) {
+      id = normalizeId(id);
+      return URI.resolve(baseId, id);
     }
     function resolveIds(schema4) {
       var schemaId = normalizeId(this._getId(schema4));
@@ -1566,25 +1566,25 @@ var require_resolve = __commonJS({
       var self = this;
       traverse(schema4, { allKeys: true }, function(sch, jsonPtr, rootSchema, parentJsonPtr, parentKeyword, parentSchema, keyIndex) {
         if (jsonPtr === "") return;
-        var id2 = self._getId(sch);
+        var id = self._getId(sch);
         var baseId = baseIds[parentJsonPtr];
         var fullPath = fullPaths[parentJsonPtr] + "/" + parentKeyword;
         if (keyIndex !== void 0)
           fullPath += "/" + (typeof keyIndex == "number" ? keyIndex : util2.escapeFragment(keyIndex));
-        if (typeof id2 == "string") {
-          id2 = baseId = normalizeId(baseId ? URI.resolve(baseId, id2) : id2);
-          var refVal = self._refs[id2];
+        if (typeof id == "string") {
+          id = baseId = normalizeId(baseId ? URI.resolve(baseId, id) : id);
+          var refVal = self._refs[id];
           if (typeof refVal == "string") refVal = self._refs[refVal];
           if (refVal && refVal.schema) {
             if (!equal(sch, refVal.schema))
-              throw new Error('id "' + id2 + '" resolves to more than one schema');
-          } else if (id2 != normalizeId(fullPath)) {
-            if (id2[0] == "#") {
-              if (localRefs[id2] && !equal(sch, localRefs[id2]))
-                throw new Error('id "' + id2 + '" resolves to more than one schema');
-              localRefs[id2] = sch;
+              throw new Error('id "' + id + '" resolves to more than one schema');
+          } else if (id != normalizeId(fullPath)) {
+            if (id[0] == "#") {
+              if (localRefs[id] && !equal(sch, localRefs[id]))
+                throw new Error('id "' + id + '" resolves to more than one schema');
+              localRefs[id] = sch;
             } else {
-              self._refs[id2] = fullPath;
+              self._refs[id] = fullPath;
             }
           }
         }
@@ -5972,10 +5972,10 @@ var require_ajv = __commonJS({
         for (var i = 0; i < schema4.length; i++) this.addSchema(schema4[i], void 0, _skipValidation, _meta);
         return this;
       }
-      var id2 = this._getId(schema4);
-      if (id2 !== void 0 && typeof id2 != "string")
+      var id = this._getId(schema4);
+      if (id !== void 0 && typeof id != "string")
         throw new Error("schema id must be string");
-      key = resolve.normalizeId(key || id2);
+      key = resolve.normalizeId(key || id);
       checkUnique(this, key);
       this._schemas[key] = this._addSchema(schema4, _skipValidation, _meta, true);
       return this;
@@ -6060,11 +6060,11 @@ var require_ajv = __commonJS({
           var serialize = this._opts.serialize;
           var cacheKey = serialize ? serialize(schemaKeyRef) : schemaKeyRef;
           this._cache.del(cacheKey);
-          var id2 = this._getId(schemaKeyRef);
-          if (id2) {
-            id2 = resolve.normalizeId(id2);
-            delete this._schemas[id2];
-            delete this._refs[id2];
+          var id = this._getId(schemaKeyRef);
+          if (id) {
+            id = resolve.normalizeId(id);
+            delete this._schemas[id];
+            delete this._refs[id];
           }
       }
       return this;
@@ -6086,21 +6086,21 @@ var require_ajv = __commonJS({
       var cached = this._cache.get(cacheKey);
       if (cached) return cached;
       shouldAddSchema = shouldAddSchema || this._opts.addUsedSchema !== false;
-      var id2 = resolve.normalizeId(this._getId(schema4));
-      if (id2 && shouldAddSchema) checkUnique(this, id2);
+      var id = resolve.normalizeId(this._getId(schema4));
+      if (id && shouldAddSchema) checkUnique(this, id);
       var willValidate = this._opts.validateSchema !== false && !skipValidation;
       var recursiveMeta;
-      if (willValidate && !(recursiveMeta = id2 && id2 == resolve.normalizeId(schema4.$schema)))
+      if (willValidate && !(recursiveMeta = id && id == resolve.normalizeId(schema4.$schema)))
         this.validateSchema(schema4, true);
       var localRefs = resolve.ids.call(this, schema4);
       var schemaObj = new SchemaObject({
-        id: id2,
+        id,
         schema: schema4,
         localRefs,
         cacheKey,
         meta
       });
-      if (id2[0] != "#" && shouldAddSchema) this._refs[id2] = schemaObj;
+      if (id[0] != "#" && shouldAddSchema) this._refs[id] = schemaObj;
       this._cache.put(cacheKey, schemaObj);
       if (willValidate && recursiveMeta) this.validateSchema(schema4, true);
       return schemaObj;
@@ -6214,9 +6214,9 @@ var require_ajv = __commonJS({
         self.addKeyword(name, keyword);
       }
     }
-    function checkUnique(self, id2) {
-      if (self._schemas[id2] || self._refs[id2])
-        throw new Error('schema with key or id "' + id2 + '" already exists');
+    function checkUnique(self, id) {
+      if (self._schemas[id] || self._refs[id])
+        throw new Error('schema with key or id "' + id + '" already exists');
     }
     function getMetaSchemaOptions(self) {
       var metaOpts = util2.copy(self._opts);
@@ -20879,7 +20879,7 @@ var makeActionHandler = (toolName, browser) => {
         return {
           content: [{
             type: "text",
-            text: `Loaded genome ${id}`
+            text: `Loaded genome ${browser.genome.id}`
           }]
         };
       };

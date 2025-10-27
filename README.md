@@ -1,22 +1,28 @@
 # igvweb-mcp
 
-This repository fixes various import issue with the "mcp-b" project files so they can be used in a web browser
-environment.  
+This project creates an MCP (Model Control Protocol) server for use with the IGV web app (github.com/igvteam/igv-webapp).
+It allows AI assistants and other MCP clients to programmatically control the webapp through the igv.js API (https://igv.org/doc/igvjs/#Browser-API/).
 
-Here's what was done.   
+## Prerequisites
 
-First, the needed npm packages are installed as dev dependencies
+- **Node.js** 18 or higher
 
+## Installation
+
+```bash
+npm install
+``` 
+
+To build a production version:
+
+```bash
+npm run build
 ```
-npm install @mcp-b/transports @modelcontextprotocol/sdk zod --save-dev
-```
 
-Then we try to use these in a web browser and run down import problems one by one.   The end result are the patched
-files in the "mcp" folder.  The following commits contain the patches
+This will build a bundled `mcp.js` file in the `dist` folder.  To enable igv-webapp
 
-[ebaaf78dfd8db02f2f8481647bcf5f2e9c4032a0](https://github.com/igvteam/igvweb-mcp/commit/320b4d5d9a91493789fe5bc91ce2aef1dd0f5759)
-
-[ebaaf78dfd8db02f2f8481647bcf5f2e9c4032a0](https://github.com/igvteam/igvweb-mcp/commit/e1e1d9e52824cad717efe62d4d6d57630e3b4ec1)
-
-
+* clone igv-webapp repo github.com/igvteam/igv-webapp
+* copy the `dist/mcp.js` file to the `igv-webapp/js` folder, replacing the existing placeholder file
+* edit igvWebconfig.js to enable MCP server by adding the property `enableMCP: true` to the config object.
+* start or build igv-webapp as usual.
 
