@@ -4,7 +4,7 @@ This is an experimental project that creates a MCP (Model Control Protocol) serv
 the [WebMCP framework](https://github.com/webmachinelearning/webmcp) for interacting with
 the [IGV web app](https://github.com/igvteam/igv-webapp). The server allows programmatic control of igv-webapp
 by installing the Chrome
-extension [MPC-B](https://chromewebstore.google.com/detail/mcp-b-extension/daohopfhkdelnpemnhlekblhnikhdhfa)
+extension [MCP-B](https://chromewebstore.google.com/detail/mcp-b-extension/daohopfhkdelnpemnhlekblhnikhdhfa)
 
 ## Prerequisites
 
