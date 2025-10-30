@@ -26,7 +26,7 @@ This will build a bundled `mcp.js` file in the `dist` folder. To enable igv-weba
 
 * clone igv-webapp repo github.com/igvteam/igv-webapp
 * copy the `dist/mcp.js` file to the `igv-webapp/js` folder, replacing the existing placeholder file
-* edit igvWebconfig.js to enable MCP server by adding the property `enableMCP: true` to the config object.
+* edit igvWebconfig.js to enable MCP server by adding the property `enableMCP: true` to igvwebConfig.js.
 * build and start igv-webapp as usual.
 * open igv-webapp in Chrome and start the MCP-B extension to connect to the MCP server.
 
