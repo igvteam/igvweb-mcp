@@ -1,6 +1,6 @@
 # igvweb-mcp
 
-This is an experimental project that creates an MCP (Model Control Protocol) server using
+This is an experimental project that creates a MCP (Model Control Protocol) server using
 the [WebMCP framework](https://github.com/webmachinelearning/webmcp) for interacting with
 the [IGV web app](https://github.com/igvteam/igv-webapp). The server allows programmatic control of igv-webapp
 by installing the Chrome
