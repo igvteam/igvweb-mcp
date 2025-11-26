@@ -1,0 +1,32 @@
+{
+  "name": "igvweb-mcp",
+  "version": "1.0.0",
+  "description": "Control IGV-Web via Model Context Protocol",
+  "type": "module",
+  "main": "dist/igvweb-mcp.js",
+  "bin": {
+    "igvweb-mcp": "dist/igvweb-mcp.js"
+  },
+  "scripts": {
+    "start": "node src/main.js",
+    "build": "npx rollup -c; node build-mcpb.js"
+  },
+  "keywords": [
+    "mcp",
+    "igv",
+    "genomics",
+    "bioinformatics"
+  ],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "ws": "^8.18.3",
+    "yaml": "^2.8.1"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^28.0.9",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^16.0.3",
+    "archiver": "^7.0.1",
+    "rollup": "^4.52.5"
+  }
+}
