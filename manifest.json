@@ -2,7 +2,7 @@
   "manifest_version": "0.1",
   "name": "igvweb-mcp",
   "version": "0.0.1",
-  "description": "Control IGV (Integrative Genomics Viewer) via Model Context Protocol",
+  "description": "Control igv-web via Model Context Protocol",
   "author": {
     "name": "Jim Robinson"
   },
@@ -14,7 +14,9 @@
       "args": [
         "${__dirname}/dist/igvweb-mcp.js",
         "--host",
-        "127.0.0.1:60141"
+        "127.0.0.1",
+        "port",
+        "60141"
       ]
     }
   }
