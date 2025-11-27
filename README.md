@@ -1,6 +1,6 @@
 # IGV MCP Server
 
-A Model Context Protocol (MCP) server for controlling [IGV-Webapp]](https://github.com/igvteam/igv-webapp) 
+A Model Context Protocol (MCP) server for controlling [IGV-Webapp](https://github.com/igvteam/igv-webapp) 
 programmatically.  This is an experimental project for demonstrating control of IGV-Webapp using MCP from
 a desktop client, specifically Claude Desktop.
 
