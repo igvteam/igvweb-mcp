@@ -6,7 +6,7 @@
  * A Model Context Protocol server for controlling IGV (Integrative Genomics Viewer) via socket commands.
  */
 
-import IGVConnection from "./webclientServer.js"
+import IGVWebSocketServer from "./igvWebSocketServer.js"
 import startMCPServer from "./mcpServer.js"
 
 
@@ -26,8 +26,8 @@ async function main() {
     }
 
     // Initialize IGV connection
-    const igvConnection = new IGVConnection({host, port})
-    await startMCPServer(igvConnection)
+    const webSocketServer = new IGVWebSocketServer({host, port})
+    await startMCPServer(webSocketServer)
 
 }
 

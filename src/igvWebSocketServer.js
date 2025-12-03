@@ -2,7 +2,7 @@ import {WebSocket, WebSocketServer} from 'ws'
 
 
 
-export default class IGVConnector {
+export default class IGVWebSocketServer {
 
     constructor({host = 'localhost', port = 60141, path = '/'}) {
 

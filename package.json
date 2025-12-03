@@ -9,7 +9,8 @@
   },
   "scripts": {
     "start": "node src/main.js",
-    "build": "npx rollup -c; node build-mcpb.js"
+    "update:tools": "node scripts/update-tools-yaml.mjs",
+    "build": "npm run update:tools && npx rollup -c && node build-mcpb.js"
   },
   "keywords": [
     "mcp",

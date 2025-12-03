@@ -1,4 +1,4 @@
-
+// Auto-generated from tools.yaml. Do not edit.
 export default `
 - name: genome
   description: |
@@ -40,7 +40,7 @@ export default `
           - Generic: IGV
           - Copy Number: SEG, GISTIC
           - Session: XML (IGV session files)
-      
+
     - name: indexURL
       description: A file path or URL to an index.  Required for some file types (e.g., BAM, CRAM)
         Tabix index files (.tbi) are supported and used for VCF.gz files; .bai or .crai files are used for BAM/CRAM files.
@@ -119,4 +119,5 @@ export default `
     - name: newName
       description: |
         The new name for the track.
-`
+
+`;

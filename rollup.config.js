@@ -9,9 +9,9 @@ export default {
         format: 'esm'
     },
     plugins: [
-        resolve(),
+        // Explicitly prefer Node built-ins to silence warnings from node-resolve
+        resolve({ preferBuiltins: true }),
         commonjs(),
         json()
     ]
 };
-

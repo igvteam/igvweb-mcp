@@ -12,7 +12,7 @@ import parseTools from "./parseTools.js"
 /**
  * Main server setup
  */
-async function startMCPServer(igvConnection) {
+async function startMCPServer(webSocketServer) {
 
     const tools = await parseTools()
     console.error(`Loaded ${tools.length} tools from YAML configuration`)
@@ -42,7 +42,7 @@ async function startMCPServer(igvConnection) {
             }
 
             const command = buildMessage(toolSpec._toolSpec, args)
-            const result = await igvConnection.send(command)
+            const result = await webSocketServer.send(command)
 
             return {
                 content:

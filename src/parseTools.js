@@ -3,17 +3,7 @@ import defaultToolsYaml from "./tools.yaml.js" // Important - use browser (esm) 
 
 
 async function getToolsYAML() {
-    // try {
-    //     let igvYaml = await igvConnection.sendCommand('toolsYaml')
-    //     if (igvYaml && igvYaml.startsWith("-")) {
-    //         igvYaml = igvYaml.replace(/<br>/g, "\n") + "\n"
-    //         return igvYaml
-    //     } else {
-    //         return defaultToolsYaml
-    //     }
-    // } catch {
-    //     return defaultToolsYaml
-    // }
+
     return defaultToolsYaml
 }
 
