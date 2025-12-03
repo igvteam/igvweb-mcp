@@ -1,15 +1,8 @@
 import {WebSocket, WebSocketServer} from 'ws'
 
 
-function generateUniqueID() {
-    const timestamp = Date.now().toString(36)
-    const randomPart = Math.random().toString(36).substring(2)
-    return `${timestamp}${randomPart}`
-}
 
 export default class IGVConnector {
-
-    wss
 
     constructor({host = 'localhost', port = 60141, path = '/'}) {
 
@@ -102,4 +95,11 @@ export default class IGVConnector {
             }
         })
     }
+}
+
+
+function generateUniqueID() {
+    const timestamp = Date.now().toString(36)
+    const randomPart = Math.random().toString(36).substring(2)
+    return `${timestamp}${randomPart}`
 }
