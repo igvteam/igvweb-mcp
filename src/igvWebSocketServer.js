@@ -6,26 +6,43 @@ export default class IGVWebSocketServer {
 
     constructor({host = 'localhost', port = 60141, path = '/'}) {
 
-        this.wss = new WebSocketServer({host, port, path})
+        try {
+            this.wss = new WebSocketServer({host, port, path})
 
-        this.wss.on('connection', (ws) => {
-
-            // If more than one client is connected, reject the new one.
-            if (this.wss.clients.size > 1) {
-                console.warn('Connection rejected: A client is already connected.')
-                ws.send('Connection rejected: A client is already connected.')
-                ws.terminate()
-                return
-            }
-
-            console.warn('Client connected')
-
-            ws.on('close', () => {
-                console.warn('Client disconnected. Total clients:', this.wss.clients.size)
+            this.wss.on('error', (error) => {
+                if (error.code === 'EADDRINUSE') {
+                    console.error(`Error: Address already in use (${host}:${port}${path})`)
+                    console.error('Another process is already using this port. Please stop it or use a different port.')
+                } else {
+                    console.error(`WebSocket server error: ${error.message}`)
+                }
+                process.exit(1)
             })
 
-            ws.send('Server: connection established')
-        })
+            this.wss.on('connection', (ws) => {
+
+                // If more than one client is connected, reject the new one.
+                if (this.wss.clients.size > 1) {
+                    console.warn('Connection rejected: A client is already connected.')
+                    ws.send('Connection rejected: A client is already connected.')
+                    ws.terminate()
+                    return
+                }
+
+                console.warn('Client connected')
+
+                ws.on('close', () => {
+                    console.warn('Client disconnected. Total clients:', this.wss.clients.size)
+                })
+
+                ws.send('Server: connection established')
+            })
+
+
+        } catch (e) {
+            console.error(`Error starting WebSocket server: ${e}`)
+            process.exit(1)
+        }
     }
 
     send(message) {

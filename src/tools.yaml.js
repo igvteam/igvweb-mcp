@@ -3,14 +3,12 @@ export default `
 - name: genome
   description: |
     
-    Loads a genome by its identifier.
+    Loads a genome by its identifier or URL
     
     Use this tool when you need to:
     - Change the reference genome for your analysis
-    - Load a custom genome not included in the default IGV list
-    - Switch between different species' genomes
-    - Prepare IGV for loading data aligned to a specific genome build
-    - Load genomes from local files or remote URLs
+    - Load a genome from the default IGV list by its identifier
+    - Load a custom genome by URL not included in the default IGV list
     
     Note: Loading a new genome will unload all currently loaded data tracks.
 

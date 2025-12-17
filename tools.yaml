@@ -1,3 +1,29 @@
+- name: removeTrackByName
+  description: |
+    Remove a track with the specificed name
+  arguments:
+    - name: trackName
+      description: |
+        The name of the track to remove
+
+- name: loadSampleInfo
+  description: |
+    Load a sample information file.
+  arguments:
+    - name: url
+      dscription: URL to the sample information file
+
+- name: loadROI
+  description: |
+    Load a BED, GTF, or GFF file containing regions of interest
+  arguments:
+    - name: url
+      description: URL to the BED, GTF, or GFF annotation file containing the regions of interest
+
+- name: clearROIs
+  description: |
+    Clear all regions of interest
+
 - name: genome
   description: |
     

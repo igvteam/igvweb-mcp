@@ -21,7 +21,6 @@ async function main() {
 
   // Add a leading newline so the YAML starts on the next line for alignment/readability.
   const content = `// Auto-generated from tools.yaml. Do not edit.\nexport default \`\n${escaped}\`;\n`;
-  await writeFile(outPath, content, 'utf8');
   console.log(`Updated ${outPath}`);
 }
 
